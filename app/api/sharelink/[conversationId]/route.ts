@@ -14,7 +14,7 @@ export async function POST(request: Request, { params }: { params: IParams }) {
         const currentUser = await getCurrentProfile();
 
         if(!currentUser){
-            return null;
+            return new Response('User not found', { status: 404 });
         }
 
         const conversation = await db.conversation.findUnique({
@@ -24,7 +24,7 @@ export async function POST(request: Request, { params }: { params: IParams }) {
         })
 
         if(!conversation){
-            return null;
+            return new Response('Conversation not found', { status: 404 });
         }
 
         const existingShareLink = await db.sharelink.findFirst({
