@@ -7,6 +7,7 @@ export default async function getCurrentProfile() {
   const supabase = createClient()
 
   const { data, error } = await supabase.auth.getSession()
+  
   if (error) {
     redirect('/login')
   }
@@ -16,7 +17,7 @@ export default async function getCurrentProfile() {
   const existingUser = await db.user.findFirst({
     where: {
       //@ts-ignore
-      email: user.email,
+      userId: user.sub,
     }
   })
 

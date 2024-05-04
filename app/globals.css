@@ -92,4 +92,9 @@ html,
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
+
+  .placeholder-opacity-55::placeholder {
+    opacity: 0.55;
+    
+  }
 }

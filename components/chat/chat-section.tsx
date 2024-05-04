@@ -69,14 +69,7 @@ export const ChatSection = ({
             <div className="w-full h-full flex flex-col items-center">
                 <div className="w-full px-4 h-[8%] flex items-center justify-between">
                     <ChatSectionHeader/>
-                    <Button 
-                        //@ts-ignore
-                        onClick={() => onOpen("shareModal", shareModalProps)}
-                        variant={'outline'} 
-                        className="px-2 bg-transparent border-neutral-300 dark:border-neutral-700 rounded-lg dark:text-white text-black"
-                    >
-                        <Upload size={20}/>
-                    </Button>
+                    
                 </div>
 
                 <div className="w-full h-[92%]">

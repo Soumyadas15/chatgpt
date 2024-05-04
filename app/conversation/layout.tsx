@@ -24,6 +24,7 @@ export default async function ConversationLayout({
   return (
     
       <div className={`h-screen overflow-hidden`}>
+        <ModalProvider currentUser={currentUser}/>
         {children}
       </div>
     

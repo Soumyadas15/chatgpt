@@ -6,6 +6,7 @@ import getCurrentProfile from "@/lib/current-profile";
 import Image from "next/image";
 import { ChatSectionMobile } from "@/components/chat/chat-section-mobile";
 import getConversations from "@/actions/get-conversations";
+import { ModalProvider } from "@/providers/modal-provider";
 
 export default async function Home() {
 
@@ -14,6 +15,7 @@ export default async function Home() {
 
   return (
     <div className="relative h-full w-full">
+      <ModalProvider currentUser={currentUser}/>
       <div className="absolute inset-y-0 left-0">
         <SideBar 
           currentUser={currentUser} 
@@ -21,9 +23,9 @@ export default async function Home() {
           conversations={conversations!}
         />
       </div>
-      {/* <div className="block md:hidden">
-        <ChatSectionMobile children={children}/>
-      </div> */}
+      <div className="block md:hidden">
+        <ChatSectionMobile currentUser={currentUser}/>
+      </div>
       <div className="hidden md:block">
         <ChatSection currentUser={currentUser}/>
       </div>

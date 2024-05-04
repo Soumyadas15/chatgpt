@@ -25,13 +25,13 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
 
-  const currentUser = await getCurrentProfile();
-  const conversations = await getConversations();
+  // const currentUser = await getCurrentProfile();
+  // const conversations = await getConversations();
 
   return (
     <html lang="en">
       <body className={`h-screen ${font.className} bg-white dark:bg-[#212121] overflow-hidden`}>
-        <ModalProvider currentUser={currentUser}/>
+        
         <ToasterProvider/>
         <ThemeProvider
             attribute="class"

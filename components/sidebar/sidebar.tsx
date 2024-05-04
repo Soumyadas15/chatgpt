@@ -24,7 +24,7 @@ export const SideBar = ({
             <div className="w-full h-[6%]">
                 <SidebarHeader/>
             </div>
-            <div className="w-full h-[77%] overflow-hidden overflow-y-scroll">
+            <div className="w-full h-[77%] overflow-hidden overflow-y-scroll no-scrollbar">
                 <SidebarConversations conversations={conversations}/>
             </div>
             <div className="w-full h-[15%] flex flex-col items-center justify-between">

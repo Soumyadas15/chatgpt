@@ -1,21 +1,21 @@
-import Image from "next/image";
+import { Message } from "@prisma/client"
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+import Image from "next/image";
 
-interface ChatItemProps {
-    currentUser: any;
-    name: string;
-    body: string;
+interface ShareMessageProps{
+    message: Message;
 }
 
-export const ChatItem = ({
-    currentUser,
-    name,
-    body
-}: ChatItemProps) => {
+export const ShareMessage = ({
+    message,
+} : ShareMessageProps) => {
+
+    const name = message.isAiReply ? 'ChatGPT' : 'User';
+
     return (
         <div className="w-full h-auto flex items-start gap-3">
             <div className="w-[4%]">
-                {(name === 'You') ? (
+                {(name === 'User') ? (
                     <Avatar className="h-full w-full mt-1">
                         <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
                         <AvatarFallback>U</AvatarFallback>
@@ -26,16 +26,16 @@ export const ChatItem = ({
                             <Image
                                 src={'/assets/images/icon_black.png'}
                                 alt='icon'
-                                width={25}
-                                height={25}
+                                width={22}
+                                height={22}
                             />
                         </div>
                         <div className='p-1 hidden dark:block rounded-full bg-neutral-700 border-1 border-neutral-700 mt-1'>
                             <Image
                                 src={'/assets/images/icon_white.png'}
                                 alt='icon'
-                                width={25}
-                                height={25}
+                                width={22}
+                                height={22}
                             />
                         </div>
                     </>
@@ -43,8 +43,8 @@ export const ChatItem = ({
             </div>
             <div className="w-[96%] flex flex-col">
                 <p className="text-black dark:text-white font-semibold">{name}</p>
-                <p className="text-black dark:text-white font-light">{body}</p>
+                <p className="text-black dark:text-white font-light">{message.body}</p>
             </div>
         </div>
-    );
-};
+    )
+}

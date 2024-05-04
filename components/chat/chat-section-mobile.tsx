@@ -12,13 +12,14 @@ import { useParams, usePathname } from "next/navigation"
 import { ConversationInput } from "../conversation/conversation-input"
 import { useMessage } from "@/contexts/message-provider"
 import { useModal } from "@/hooks/use-modal-store"
+import { ChatClient } from "./chat-client"
 
 interface ChatSectionMobileProps{
-    children: React.ReactNode;
+    currentUser: any;
 }
 
 export const ChatSectionMobile = ({
-    children
+    currentUser
 } : ChatSectionMobileProps) => {
 
     const pathname = usePathname();
@@ -35,15 +36,7 @@ export const ChatSectionMobile = ({
 
     useEffect(() => {
         scrollToBottom();
-    }, [children]);
-
-    useEffect(() => {
-        scrollToBottom();
     }, [message]);
-
-    useEffect(() => {
-        scrollToBottom();
-    }, [children]);
 
 
     const scrollToBottom = () => {
@@ -57,22 +50,24 @@ export const ChatSectionMobile = ({
             <div className="w-full h-full flex flex-col items-center">
                 <div className="w-full px-4 h-[8%] flex items-center justify-between border-b-[1px] border-neutral-600">
                     <ChatSectionHeader/>
-                    <Button 
-                        //@ts-ignore
-                        onClick={() => onOpen("shareModal", shareModalProps)}
-                        variant={'outline'} 
-                        className="px-2 bg-transparent border-neutral-300 dark:border-neutral-700 rounded-lg dark:text-white text-black"
-                    >
-                        <Upload size={20}/>
-                    </Button>
+                    {pathname.startsWith('/conversation') && (
+                        <Button 
+                            //@ts-ignore
+                            onClick={() => onOpen("shareModal", shareModalProps)}
+                            variant={'outline'} 
+                            className="px-2 bg-transparent border-neutral-300 dark:border-neutral-700 rounded-lg dark:text-white text-black"
+                        >
+                            <Upload size={20}/>
+                        </Button>
+                    )}
                 </div>
 
                 <div className="w-full h-[92%] overflow-hidden">
                     <ChatContainer>
                         <div className="w-full h-full flex flex-col">
                             <div className="w-full h-[87%] px-10 pt-4 overflow-hidden overflow-y-scroll no-scrollbar">
-                                {children}
-                                
+                                <ChatClient currentUser={currentUser}/>
+                                <div ref={messagesEndRef} />
                             </div>
                             <div className="w-full h-[13%]">
                                 {(pathname.startsWith('/conversation')) ? (
