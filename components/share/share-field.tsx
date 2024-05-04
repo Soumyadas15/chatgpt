@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import createShareLink from "@/actions/create-sharelink";
 import { trimTextWithDots } from "@/lib/trim-text-with-dots";
 import toast from "react-hot-toast";
+import axios from "axios";
 
 interface ShareFieldProps{
     conversationId: string;
@@ -37,12 +38,10 @@ export const ShareField = ({
     const fetchShareLink = async () => {
         setLoading(true);
         try {
-            const share = await createShareLink(conversationId);
-            if (share) {
-                //@ts-ignore
-                setLink(share.id);
-                //@ts-ignore
-                await navigator.clipboard.writeText(`${process.env.NEXT_PUBLIC_APP_URL}/share/${share.id}`);
+            const share = await axios.post(`/api/sharelink/${conversationId}`);
+            if (share && share.data) {
+                setLink(share.data.id);
+                await navigator.clipboard.writeText(`${process.env.NEXT_PUBLIC_APP_URL}/share/${share.data.id}`);
                 setCopied(true);
                 setTimeout(() => {
                     setCopied(false);
